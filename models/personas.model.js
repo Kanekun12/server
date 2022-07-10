@@ -1,11 +1,12 @@
 import mongoose,{Schema} from "mongoose";
 
 const persona=new Schema({
-    clave:{type:String},
     nombre:String,
     apellidos:String,
-    telefono:{type:Number},
     email:String,
+    password:String,
+    sexo:String,
+    edad:String,
     createdAct:{type:Date, default:Date.now}
 });
 

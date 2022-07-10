@@ -4,14 +4,15 @@ import models from "../models";
 export default {
   addPersona: async (req, res, next) => {
     try {
-      const { clave, nombre, apellidos, telefono, email } = req.body;
+      const {nombre, apellidos, email, password, sexo, edad } = req.body;
 
       const persona = new models.Personas({
-        clave,
         nombre,
         apellidos,
-        telefono,
         email,
+        password,
+        sexo,
+        edad
       });
 
       const guardar = await persona.save();
@@ -69,19 +70,21 @@ export default {
   updatePersona:async(req,res,next)=>{
     try{
         const {
-            clave,
-            nombre,
-            apellidos,
-            telefono,
-            email
+          nombre,
+          apellidos,
+          email,
+          password,
+          sexo,
+          edad
         }=req.body;
 
         const upPersona={
-            clave,
-            nombre,
-            apellidos,
-            telefono,
-            email
+          nombre,
+          apellidos,
+          email,
+          password,
+          sexo,
+          edad
         };
 
         const update=await models.Personas.findByIdAndUpdate(req.params.id,upPersona);
