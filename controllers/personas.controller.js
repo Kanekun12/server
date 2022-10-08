@@ -2,20 +2,19 @@ import { model } from "mongoose";
 import models from "../models";
 
 export default {
+
   addPersona: async (req, res, next) => {
     try {
-      const {nombre, apellidos, email, password, sexo, edad } = req.body;
+      const { nombre, apellidos,direccion, profesion, edad, sexo } = req.body;
 
-      const persona = new models.Personas({
-        nombre,
-        apellidos,
-        email,
-        password,
-        sexo,
-        edad
+      const agregarPersona = new models.Personas({
+         nombre, apellidos, direccion, profesion, edad, sexo
       });
 
-      const guardar = await persona.save();
+      agregarPersona.filename=req.file.filename;
+      agregarPersona.path='public/imagenes/'; +req.file.filename;
+
+      const guardar = await agregarPersona.save();
       res.status(200).json(guardar);
     } catch (e) {
       res.status(500).send({
@@ -24,6 +23,7 @@ export default {
       next(e);
     }
   },
+
   //Método para consultar en la coleccion de datos de mongoDB
   listarPersonas: async (req, res, next) => {
     try {
@@ -70,21 +70,11 @@ export default {
   updatePersona:async(req,res,next)=>{
     try{
         const {
-          nombre,
-          apellidos,
-          email,
-          password,
-          sexo,
-          edad
+        nombre, apellidos, profesion, edad, sexo
         }=req.body;
 
         const upPersona={
-          nombre,
-          apellidos,
-          email,
-          password,
-          sexo,
-          edad
+          nombre, apellidos,direccion, profesion, edad, sexo
         };
 
         const update=await models.Personas.findByIdAndUpdate(req.params.id,upPersona);
